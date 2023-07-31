@@ -22,10 +22,6 @@ const signup = async (req, res) => {
             return res.status(400).json({ message: 'user already exists' });
         }
 
-        // send otp
-        // const sendchamp = require('sendchamp');
-        // await sendchamp.smsotp(phoneNumber);
-
         // Create a new user
         const newUser = new userSchema({
             phoneNumber,
@@ -36,7 +32,6 @@ const signup = async (req, res) => {
         });
 
         await newUser.save();
-
         return res.status(200).json({ message: 'User registered successfully' });
     } catch (error) {
         console.error(error);

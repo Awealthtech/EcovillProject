@@ -12,9 +12,9 @@
 <h1 class="otp">OTP VERIFICATION </h1> 
 <p> Enter the OTP number sent to your email</p>
 <br>  <br>
-    <form action="/api/v1/verifyOTP" method="post">
+    <form action="/verifyOTP" method="post">
 
-        <input class="styled-input" placeholder="Enter Code" type="text"> <br> <br>
+        <input class="styled-input" placeholder="Enter Code" name="otp" type="number" > <br> <br>
         
         <input class="styled-button"type="submit" value="Verify" >
     
