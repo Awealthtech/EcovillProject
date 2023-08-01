@@ -1,138 +1,73 @@
 const nodemailer = require("nodemailer");
-const Otp = require("../models/otpModel");
-
-// sendOtp verified page
-const sendOtpGet = async (req, res) => {
-  return res.render("index", {error: ""});
-}
-// otpVerificationGet
-const otpVerificationGet = async (req, res) => {
-  return res.render("otpVerification", {error: ""});
-}
+const OTP = require("../models/otpModel");
 
 // Function to send OTP via email
- const sendOTP = async (req, res) => {
-    const { email } = req.body;
-    const existingUser = await Otp.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'user already exists' });
-        }
-  const otpCode = Math.floor(100000 + Math.random() * 900000).toString(); // Generate a 6-digit OTP
-  // const newOtp = new Otp({ email, otp: otpCode });
-  // await newOtp.save();
-
-let mailTransporter = nodemailer.createTransport({
-	service: 'gmail',
-	auth: {
-		user: process.env.AUTH_EMAIL,
-		pass: process.env.AUTH_PASSWORD,
-	}
-});
-
-let mailDetails = {
-	from: process.env.AUTH_EMAIL,
-	to: email,
-	subject: 'Test mail',
-	text: `Your OTP for verification is: ${otpCode}`
+class OTPController {
+// sendOtp verified page
+  static async sendOtpGet(req, res) {
+  return res.render("index", { error: "" });
+};
+// otpVerificationGet
+  static async otpVerificationGet(req, res) {
+  return res.render("otpVerification", { error: "" });
 };
 
-mailTransporter.sendMail(mailDetails, function(err, data) {
-	if(err) {
-		console.log('Error Occurs');
-    return res.render("index");
-	} else {
-		console.log('Email sent successfully');
-    return res.redirect("/verifyOTP", 200 , {error: ""});
-	}
-});
+  static async sendOTP(req, res) {
+    const { email } = req.body;
+        const existingUser = await OTP.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'user already exists,try another email' });
+        }
+    const otp = Math.floor(100000 + Math.random() * 900000); // Generate a random 6-digit OTP
+
+    // Save the OTP to the database
+    const otpInstance = new OTP({ email, otp });
+    await otpInstance.save();
+
+    // Send the OTP via email using Nodemailer
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.AUTH_EMAIL,
+        pass: process.env.AUTH_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from:  process.env.AUTH_EMAIL,
+      to: email,
+      subject: "Your OTP",
+      text: `Your OTP is ${otp}`,
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log("OTP sent via email");
+      res.status(200).json({ message: "OTP sent successfully" });
+    } catch (error) {
+      console.log("Error sending OTP:", error);
+      res.status(500).json({ error: "Failed to send OTP" });
     }
-  // const transporter = nodemailer.createTransport({
-  //   service: "gmail",
-  
-  //   auth: {
-  //     user: "alegbeleyebukola42@gmail.com",
-  
-  //     pass: "rrsysiasjczvhmjg",
-  //   },
-  // });
-  
-  // const sendMail = async ({ to, subject, message }) => {
-  //   // const emailPath = "../templates/reset-pwd.ejs"
-  
-  //   const mailOption = {
-  //     from: "alegbeleyebukola42@gmail.com",
-  
-  //     to,
-  
-  //     subject, // html:emailPath({data:"link"}),
-  //     message,
-  //   };
-  
-  //   transporter.sendMail(mailOption, function (error, info) {
-  //     if (error) {
-  //       console.log(error);
-  //     } else {
-  //       console.log("email was sent", info);
-  //     }
-    // });
-  // };
-  
-  // setTimeout(() => {
-  //   sendMail({
-  //     to: email,
-  //     subject: `welcome otp is ${otpCode}`,
-  //     message: `Your OTP for verification is: ${otpCode}`
-  //   });
-  // }, 3000);
-  
-//   console.log("hi");
-//   return res.json({message:"sent"});
-//   // Save the OTP to the database (you can use any database, here we're using MongoDB with Mongoose)
-//    } catch (error) {
-//     return res.json({message:"not sent"});
-//   }
-// }
+  }
 
+  static async verifyOTP(req, res) {
+    const { email, otp } = req.body;
 
+    // Find the OTP from the database
+    const savedOTP = await OTP.findOne({ email }).sort({ createdAt: -1 });
 
-// let mailTransporter = nodemailer.createTransport({
-// 	service: 'gmail',
-// 	auth: {
-// 		user: process.env.AUTH_EMAIL,
-// 		pass: process.env.AUTH_PASSWORD,
-// 	}
-// });
-// const mailOptions = {
-// 	from: process.env.AUTH_EMAIL,
-// 	to: email,
-// 	subject: 'Test mail',
-// 	text: `Your OTP for verification is: ${otpCode}`
-// }; 
-// const newOtp = new Otp({ email, otp: otpCode });
-// await newOtp.save();
-// await mailTransporter.sendMail(mailOptions);
-// // res.json({message:"Email sent successfully"});
-// return res.json({message:"sent"});
-//   } catch (error) {
-//     return res.json({message:"not sent"});
-//   }
-// }
+    if (!savedOTP) {
+      return res.status(400).json({ error: "OTP not found or expired" });
+    }
 
-
-// Function to verify OTP
-async function verifyOTP(req, res) {
-  const {otp } = req.body;
-
-  // Check if the OTP exists in the database
-  const savedOtp = await Otp.findOne({ otp });
-
-  if (savedOtp) {
-    // Delete the OTP from the database as it's a one-time use
-    await savedOtp.deleteOne();
-    return res.render("userinfo");
-  } else {
-    return res.render("userinfo");
+    if (otp === savedOTP.otp) {
+      // OTP is valid
+      res.status(200).json({ message: "OTP verified successfully" });
+    } else {
+      // Invalid OTP
+      res.status(400).json({ error: "Invalid OTP" });
+    }
   }
 }
 
-module.exports = { sendOTP, verifyOTP, sendOtpGet, otpVerificationGet };
+module.exports = OTPController  
