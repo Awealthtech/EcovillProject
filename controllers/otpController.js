@@ -3,21 +3,25 @@ const OTP = require("../models/otpModel");
 
 // Function to send OTP via email
 class OTPController {
-// sendOtp verified page
+  // sendOtp verified page
   static async sendOtpGet(req, res) {
-  return res.render("index", { error: "" });
-};
-// otpVerificationGet
+    return res.render("index", { error: "" });
+  }
+  // otpVerificationGet
   static async otpVerificationGet(req, res) {
-  return res.render("otpVerification", { error: "" });
-};
+    return res.render("otpVerification", { error: "" });
+  }
 
   static async sendOTP(req, res) {
     const { email } = req.body;
-        const existingUser = await OTP.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'user already exists,try another email' });
-        }
+    const existingUser = await OTP.findOne({ email });
+    if (existingUser) {
+      res.render("index", { error: "" });
+      res
+        .status(400)
+        .json({ message: "user already exists,try another email" });
+    }
+
     const otp = Math.floor(100000 + Math.random() * 900000); // Generate a random 6-digit OTP
 
     // Save the OTP to the database
@@ -34,7 +38,7 @@ class OTPController {
     });
 
     const mailOptions = {
-      from:  process.env.AUTH_EMAIL,
+      from: process.env.AUTH_EMAIL,
       to: email,
       subject: "Your OTP",
       text: `Your OTP is ${otp}`,
@@ -43,9 +47,11 @@ class OTPController {
     try {
       await transporter.sendMail(mailOptions);
       console.log("OTP sent via email");
+      res.render("otpVerification", { error: "" });
       res.status(200).json({ message: "OTP sent successfully" });
     } catch (error) {
       console.log("Error sending OTP:", error);
+      res.render("index", { error: "" });
       res.status(500).json({ error: "Failed to send OTP" });
     }
   }
@@ -62,12 +68,14 @@ class OTPController {
 
     if (otp === savedOTP.otp) {
       // OTP is valid
+      res.render("userinfo", { error: "" });
       res.status(200).json({ message: "OTP verified successfully" });
     } else {
       // Invalid OTP
+      res.redirect("otpVerification", { error: "" });
       res.status(400).json({ error: "Invalid OTP" });
     }
   }
 }
 
-module.exports = OTPController  
+module.exports = OTPController;

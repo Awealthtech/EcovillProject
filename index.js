@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const bodyParser = require("body-parser");
-const userRoutes = require('./routes/userRoutes');
+const userRoutes = require("./routes/userRoutes");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -14,13 +14,12 @@ app.set("view engine", "ejs");
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 // mongodb URI
-const DB_URI =
-  process.env.MONGOLAB_URI;
+const DB_URI = process.env.MONGOLAB_URI;
 
 // Routes
-app.use('/api', userRoutes);
-app.use('/', require('./routes/otpRoutes.js'));
-
+app.use("/api", userRoutes);
+app.use("/", require("./routes/otpRoutes.js"));
+app.use("/payment", require("./routes/paymentRoutes"));
 
 // Start the server
 mongoose
@@ -38,5 +37,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-
