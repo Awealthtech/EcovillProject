@@ -1,5 +1,5 @@
 // models/Payment.js
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const paymentSchema = new mongoose.Schema({
   email: {
@@ -17,8 +17,8 @@ const paymentSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
-    enum: ["pending", "success", "failed"],
-    default: "pending",
+    enum: ['pending', 'success', 'failed'],
+    default: 'pending',
   },
   createdAt: {
     type: Date,
@@ -26,6 +26,6 @@ const paymentSchema = new mongoose.Schema({
   },
 });
 
-const Payment = mongoose.model("Payment", paymentSchema);
+const Payment = mongoose.model('Payment', paymentSchema);
 
 module.exports = Payment;
