@@ -5,6 +5,7 @@ const paymentController = require("../controllers/paymentController");
 
 // Display the payment form
 router.get("/pay", (req, res) => {
+  // res.json({message:"pay"})
   res.render("pay");
 });
 

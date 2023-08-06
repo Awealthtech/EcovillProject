@@ -16,7 +16,7 @@ class OTPController {
     const { email } = req.body;
     const existingUser = await OTP.findOne({ email });
     if (existingUser) {
-      res.render("index", { error: "" });
+      // res.render("index", { error: "" });
       res
         .status(400)
         .json({ message: "user already exists,try another email" });
@@ -47,11 +47,11 @@ class OTPController {
     try {
       await transporter.sendMail(mailOptions);
       console.log("OTP sent via email");
-      res.render("otpVerification", { error: "" });
+      // res.render("otpVerification", { error: "" });
       res.status(200).json({ message: "OTP sent successfully" });
     } catch (error) {
       console.log("Error sending OTP:", error);
-      res.render("index", { error: "" });
+      // res.render("index", { error: "" });
       res.status(500).json({ error: "Failed to send OTP" });
     }
   }
@@ -63,16 +63,18 @@ class OTPController {
     const savedOTP = await OTP.findOne({ email }).sort({ createdAt: -1 });
 
     if (!savedOTP) {
-      return res.status(400).json({ error: "OTP not found or expired" });
+      // res.render("otpVerification", { error: "" });
+      res.status(400).json({ error: "OTP not found or expired" });
     }
 
     if (otp === savedOTP.otp) {
       // OTP is valid
-      res.render("userinfo", { error: "" });
+      // res.render("userinfo", { error: "" });
+      console.log("otp verified")
       res.status(200).json({ message: "OTP verified successfully" });
     } else {
       // Invalid OTP
-      res.redirect("otpVerification", { error: "" });
+      // res.render("otpVerification", { error: "" });
       res.status(400).json({ error: "Invalid OTP" });
     }
   }

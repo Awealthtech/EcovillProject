@@ -24,10 +24,10 @@ const userSchema = new mongoose.Schema({
     validate: {
       validator: function (v) {
         // Use a regular expression to validate the phone number
-        return /\d{3}-\d{3}-\d{4}/.test(v);
+        return /\d{3}\d{3}\d{4}/.test(v);
       },
       message: (props) =>
-        `${props.value} is not a valid phone number! Format: xxx-xxx-xxxx`,
+        `${props.value} is not a valid phone number! Format: xxxxxxxxxx`,
     },
   },
   isVerified: {

@@ -23,10 +23,7 @@ app.use("/payment", require("./routes/paymentRoutes"));
 
 // Start the server
 mongoose
-  .connect(DB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(DB_URI)
   .then(() => {
     const port = process.env.PORT || 3000;
     app.listen(port, () => {

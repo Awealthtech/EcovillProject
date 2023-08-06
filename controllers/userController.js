@@ -2,6 +2,7 @@ const userSchema = require("../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
+const OTP = require("../models/otpModel");
 // const sendchamp = require('sendchamp');
 
 // signupGet
@@ -18,9 +19,10 @@ const signup = async (req, res) => {
   try {
     // Check if the phone number already exists
     const existingUser = await userSchema.findOne({ phoneNumber });
-    if (existingUser) {
-      res.render("userinfo", {error: ""})
-      return res.status(400).json({ message: "user already exists" });
+    const OTPUser = await OTP.findOne({ email });
+    if (existingUser || !OTPUser) {
+      // res.render("userinfo", {error: ""})
+      return res.status(400).json({ message: "number used or email not verified" });
     }
 
     // Create a new user
@@ -33,12 +35,12 @@ const signup = async (req, res) => {
     });
 
     await newUser.save();
-    res.redirect("login", {error: ""})
+    // res.redirect("login", {error: ""})
    res.status(200).json({ message: "User registered successfully" });
   } catch (error) {
     console.error(error);
-    res.render("userinfo", {error: ""})
-    return res.status(500).json({ message: "Server error" });
+    // res.render("userinfo", {error: ""})
+    return res.status(500).json({ message: "Server error" }).error;
   }
 };
 
@@ -50,8 +52,8 @@ const login = async (req, res) => {
     // Find the user by email
     const user = await userSchema.findOne({ phoneNumber });
     if (!user) {
-      res.render("login", { error: "" } );
-       res.status(400).json({ message: "Invalid user details" });
+      // res.render("login", { error: "" } );
+       res.status(400).json({ message: "Invalid user details" }).error;
     }
 
     // Generate and return the JWT
@@ -63,27 +65,27 @@ const login = async (req, res) => {
     // res.render("home", { error: "" } );
   } catch (error) {
     console.error(error);
-    res.render("login", { error: "" } );
-    res.status(500).json({ message: "Server error" });
+    // res.render("login", { error: "" } );
+    res.status(500).json({ message: "Server error" }).error;
   }
 };
 
 // profile Api
 
 const profile = async (req, res) => {
+  const { email } = req.body;
   try {
-    const user = await userSchema.find();
+    const user = await userSchema.find({email});
     if (!user) {
       res.json({message: "user not found"})
      res.status(404).render("error", { error: "User not found" });
     }
-    res.render("profile", { user });
-    res.json({message: "user profile displayed"})
+    // res.render("profile", { user });
+    console.log({user});
+    res.json(user)
   } catch (error) {
     console.error(error);
-    res.render("error", {
-      error: "An error occurred while fetching user profile",
-    });
+    // res.render("error", { error: "An error occurred while fetching user profile" });
     res.json({ message: "server error" });
   }
 };

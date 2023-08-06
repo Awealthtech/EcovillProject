@@ -28,12 +28,12 @@ async function initializePayment(req, res) {
     await payment.save();
 
     res.redirect(response.data.data.authorization_url);
-    res.json({ message: "payment initiated" });
+    // res.json(response.data.data.authorization_url);
   } catch (error) {
     console.error(error);
     res.render("error", {
-      error: "An error occurred while initializing payment.",
-    });
+      error: "An error occurred while initializing payment."});
+    // res.json({message: "an error occurred"})
   }
 }
 
@@ -52,14 +52,16 @@ async function verifyPayment(req, res) {
         return res.render("error", { error: "Payment not found." });
       }
       res.render("success", { reference });
+      // res.json(reference)
     } else {
+      // res.json({message: "payment verification failed"})
       res.render("error", { error: "Payment verification failed." });
     }
   } catch (error) {
     console.error(error);
     res.render("error", {
-      error: "An error occurred while verifying payment.",
-    });
+      error: "An error occurred while verifying payment.",  });
+    // res.json({message: "An error occurred while verifying payment."})  
   }
 }
 
