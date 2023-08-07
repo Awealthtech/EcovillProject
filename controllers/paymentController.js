@@ -28,7 +28,7 @@ async function initiatePayment(req, res) {
     });
     await payment.save();
 
-    res.redirect(response.data.data.authorization_url);
+    res.redirect(response.data.data.authorization_url );
   } catch (error) {
     console.error(error);
     res.render('error', { message: 'An error occurred while initializing payment.' });

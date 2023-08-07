@@ -9,7 +9,7 @@ router.get('/pay', (req, res) => {
 });
 
 // Initiate payment
-router.post('/initiate-payment', paymentController.initiatePayment);
+router.post('/pay', paymentController.initiatePayment);
 
 // Verify payment
 router.get('/verify-payment', paymentController.verifyPayment);
