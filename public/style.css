@@ -76,3 +76,6 @@ line-height: normal;
 .otp {
     color: #000;
 }
+.error{
+    color: red;
+}

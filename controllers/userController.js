@@ -21,8 +21,7 @@ const signup = async (req, res) => {
     const existingUser = await userSchema.findOne({ phoneNumber });
     const OTPUser = await OTP.findOne({ email });
     if (existingUser || !OTPUser) {
-      // res.render("userinfo", {error: ""})
-      return res.status(400).json({ message: "number used or email not verified" });
+      res.render("userinfo", {error: ""})
     }
 
     // Create a new user
@@ -35,12 +34,10 @@ const signup = async (req, res) => {
     });
 
     await newUser.save();
-    // res.redirect("login", {error: ""})
-   res.status(200).json({ message: "User registered successfully" });
+    res.redirect("/api/login", {error: ""})
   } catch (error) {
     console.error(error);
-    // res.render("userinfo", {error: ""})
-    return res.status(500).json({ message: "Server error" }).error;
+    res.render("userinfo", {error: ""})
   }
 };
 
@@ -52,21 +49,17 @@ const login = async (req, res) => {
     // Find the user by email
     const user = await userSchema.findOne({ phoneNumber });
     if (!user) {
-      // res.render("login", { error: "" } );
-       res.status(400).json({ message: "Invalid user details" }).error;
+      res.render("login", { error: "user not found or incorrect number" } );
     }
 
     // Generate and return the JWT
     const token = jwt.sign({ userId: user._id }, config.jwtSecret, {
       expiresIn: "200000h",
     });
-
-    res.status(200).json({ message: "Login successfully" });
-    // res.render("home", { error: "" } );
+    res.render("home", { error: "" } );
   } catch (error) {
     console.error(error);
-    // res.render("login", { error: "" } );
-    res.status(500).json({ message: "Server error" }).error;
+    res.render("login", { error: "user not found or incorrect number" } );
   }
 };
 
@@ -77,16 +70,13 @@ const profile = async (req, res) => {
   try {
     const user = await userSchema.find({email});
     if (!user) {
-      res.json({message: "user not found"})
      res.status(404).render("error", { error: "User not found" });
     }
-    // res.render("profile", { user });
+    res.render("profile", { user });
     console.log({user});
-    res.json(user)
   } catch (error) {
     console.error(error);
-    // res.render("error", { error: "An error occurred while fetching user profile" });
-    res.json({ message: "server error" });
+    res.render("error", { error: "An error occurred while fetching user profile" });
   }
 };
 

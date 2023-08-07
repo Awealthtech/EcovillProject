@@ -12,8 +12,8 @@
       <p>Enter the OTP number sent to your email</p>
       <br />
       <br />
+      <p class="error"><%=error%></p>
       <form action="/verifyOTP" method="POST">
-        <p class="error"><%=error%></p>
         <label for="email">Email:</label>
         <input type="email" name="email" required />
         <label for="otp">OTP:</label>
@@ -21,7 +21,8 @@
         <button type="submit">Verify OTP</button>
       </form>
       <p>Didn't recieve the OTP?</p>
-      <a href="">Resend</a>
+      <a href="/views/index.ejs">Resend</a>
+      <p>use another email;</p>
     </div>
   </body>
 </html>

@@ -1,6 +1,6 @@
 // controllers/paymentController.js
-const axios = require('axios');
-const Payment = require('../models/Payment');
+const axios = require("axios")
+const Payment = require('../models/payment');
 const dotenv = require('dotenv');
 dotenv.config();
 

@@ -11,6 +11,7 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+app.use(bodyParser.text({ type: 'text/ejs' }))
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 // mongodb URI
@@ -19,7 +20,7 @@ const DB_URI = process.env.MONGOLAB_URI;
 // Routes
 app.use("/api", userRoutes);
 app.use("/", require("./routes/otpRoutes.js"));
-app.use("/payment", require("./routes/paymentRoutes"));
+// app.use("/payment", require("./routes/paymentRoutes"));
 
 // Start the server
 mongoose

@@ -1,5 +1,5 @@
 // models/Payment.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose")
 
 const paymentSchema = new mongoose.Schema({
   email: {
@@ -26,6 +26,4 @@ const paymentSchema = new mongoose.Schema({
   },
 });
 
-const Payment = mongoose.model('Payment', paymentSchema);
-
-module.exports = Payment;
+module.exports = mongoose.model('Payment', paymentSchema);
