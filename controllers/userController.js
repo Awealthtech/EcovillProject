@@ -7,7 +7,7 @@ const OTP = require("../models/otpModel");
 
 // signupGet
 const signup_get = async (req, res) => {
-  return res.render("UserInfo", { error: "" });
+  return res.render("userInfo", { error: "" });
 };
 
 const login_get = async (req, res) => {
