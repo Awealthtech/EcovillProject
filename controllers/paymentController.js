@@ -1,11 +1,11 @@
 // controllers/paymentController.js
-const axios = require("axios")
-const Payment = require('../models/payment');
-const dotenv = require('dotenv');
+const axios = require("axios");
+const Payment = require("../models/payment");
+const dotenv = require("dotenv");
 dotenv.config();
 
 const paystackApi = axios.create({
-  baseURL: 'https://api.paystack.co',
+  baseURL: "https://api.paystack.co",
   headers: {
     Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
   },
@@ -13,13 +13,17 @@ const paystackApi = axios.create({
 
 const makePaymentGet = (req, res) => {
   return res.render("pay", { error: "" });
-}
+};
 
 async function makePayment(req, res) {
-
   try {
     const { email, amount } = req.body;
-    const response = await paystackApi.post('/transaction/initialize', {
+    const existingUser = await userSchema.findOne({ email });
+    if (!existingUser) {
+      res.render("pay", { error: "user details incorrect" });
+    }
+
+    const response = await paystackApi.post("/transaction/initialize", {
       email,
       amount: amount * 100, // Paystack expects amount in kobo (i.e., 100 kobo = 1 Naira)
     });
@@ -29,41 +33,45 @@ async function makePayment(req, res) {
       email,
       amount,
       reference: response.data.data.reference,
-      status: 'pending',
+      status: "pending",
     });
     await payment.save();
     res.render({ authorization_url: response.data.data.authorization_url });
   } catch (error) {
     console.error(error);
-    res.render("pay", {error: "An error occurred while initializing payment."})
+    res.render("pay", {
+      error: "An error occurred while initializing payment.",
+    });
   }
 }
 
 async function verifyPayment(req, res) {
   try {
     const { reference } = req.query;
-    const verifyResponse = await paystackApi.get(`/transaction/verify/${reference}`);
-    if (verifyResponse.data.data.status === 'success') {
+    const verifyResponse = await paystackApi.get(
+      `/transaction/verify/${reference}`
+    );
+    if (verifyResponse.data.data.status === "success") {
       const payment = await Payment.findOneAndUpdate(
         { reference },
-        { status: 'success' },
+        { status: "success" },
         { new: true }
       );
       if (!payment) {
-      return res.render("error")
+        return res.render("error");
       }
-      res.render("success")
+      res.render("success");
     } else {
-      res.render("error")
+      res.render("error");
     }
   } catch (error) {
     console.error(error);
-    res.render("error")
+    res.render("error");
   }
 }
 
 module.exports = {
   makePayment,
   verifyPayment,
-  makePaymentGet
+  makePaymentGet,
 };
