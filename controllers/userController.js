@@ -7,7 +7,7 @@ const OTP = require("../models/otpModel");
 
 // signupGet
 const signup_get = async (req, res) => {
-  return res.render("Userinfo", { error: "" });
+  return res.render("UserInfo", { error: "" });
 };
 
 const login_get = async (req, res) => {
@@ -21,7 +21,7 @@ const signup = async (req, res) => {
     const existingUser = await userSchema.findOne({ phoneNumber });
     const OTPUser = await OTP.findOne({ email });
     if (existingUser || !OTPUser) {
-      res.render("userinfo", {error: ""})
+      res.render("userInfo", {error: ""})
     }
 
     // Create a new user
@@ -37,7 +37,7 @@ const signup = async (req, res) => {
     res.redirect("/api/login", 200, {error: ""})
   } catch (error) {
     console.error(error);
-    res.render("userinfo", {error: ""})
+    res.render("userInfo", {error: ""})
   }
 };
 
