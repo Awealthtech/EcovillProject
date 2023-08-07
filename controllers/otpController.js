@@ -44,7 +44,7 @@ class OTPController {
     try {
       await transporter.sendMail(mailOptions);
       console.log("OTP sent via email");
-      res.redirect(200, "otpVerification", { error: "" }) 
+      res.redirect("/verifyOTP",200, { error: "" }) 
     } catch (error) {
       console.log("Error sending OTP:", error);
       res.render("index", { error: "existing user" });
@@ -63,7 +63,7 @@ class OTPController {
 
     if (otp === savedOTP.otp) {
       // OTP is valid
-      res.redirect(200, "userinfo", { error: "" }) 
+      res.redirect( "/api/signup",200, { error: "" }) 
       console.log("otp verified")
     } else {
       // Invalid OTP
