@@ -21,7 +21,7 @@ const signup = async (req, res) => {
     const existingUser = await userSchema.findOne({ phoneNumber });
     const OTPUser = await OTP.findOne({ email });
     if (existingUser || !OTPUser) {
-      res.render("userInfo", {error: ""})
+      res.render("userInfo", {error: "user details incorrect"})
     }
 
     // Create a new user
