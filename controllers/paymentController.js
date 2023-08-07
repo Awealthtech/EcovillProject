@@ -11,10 +11,11 @@ const paystackApi = axios.create({
   },
 });
 
+const makePaymentGet = (req, res) => {
+  return res.render("pay", { error: "" });
+}
+
 async function makePayment(req, res) {
-   async function makePaymentGet(req, res) {
-    return res.render("pay", { error: "" });
-  }
 
   try {
     const { email, amount } = req.body;
@@ -64,4 +65,5 @@ async function verifyPayment(req, res) {
 module.exports = {
   makePayment,
   verifyPayment,
+  makePaymentGet
 };
