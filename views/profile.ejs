@@ -1,4 +1,4 @@
-<!-- views/profile.ejs -->
+<!-- views/profile.ejs
 <!DOCTYPE html>
 <html>
   <head>
@@ -15,4 +15,42 @@
     <p><strong>phone number:</strong> <%= user.phoneNumber %></p>
     <% }) %>
   </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="/static/style2.css">
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="nav-bar">
+    <h1> Ecovill</h1>
+    <ul>
+      <p class="profile"> Account: Onasanya Adewunmi Solomon<p>
+        <li><a href="/api/home"> Home</a></li>
+        <li><a href="/payment/pay"> Payment</a></li>
+        <li><a href="/api/profile">Profile</a></li>
+  </ul>
+  </div>
+  <p class="p-header">Profile</p>
+  <div class="profile-details"> 
+    <% user.forEach(users => { %>
+      <ul>
+        <li><%= user.name %></li>
+      </ul>
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <p><strong>Address:</strong> <%= user.Address %></p>
+      <p><strong>phone number:</strong> <%= user.phoneNumber %></p>
+      <% }) %>
+  </div>
+  <button class="request">Request to update details</button>
+
+
+</div>
+</body>
 </html>
