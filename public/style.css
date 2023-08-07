@@ -11,6 +11,7 @@ body {
   align-items: center;
     background-color: #FFFFFF;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    position:fixed;
 }
 
 .sub-main {
