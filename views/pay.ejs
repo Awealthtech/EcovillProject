@@ -1,5 +1,48 @@
 <!-- views/index.ejs -->
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <link rel="stylesheet" href="/static/style2.css">
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="nav-bar">
+    <h1> Ecovill</h1>
+    <ul>
+      <p class="profile"> Account: Onasanya Adewunmi Solomon<p>
+        <li><a href="/api/home"> Home</a>
+          <li><a href="/payment/pay"> Payment</a>
+          <li><a href="/api/profile">Profile</a>
+  </ul>
+
+<p class="pay">Payment</p>
+<div class="pay-content">
+  <p> Services for 1 month is N 2000 </p> <br>
+    <form method="POST" action="/payment/pay">
+      <p for="email">Email:</p>
+      <input class="styled-input" type="email" id="email" name="email" required>
+      <p for="amount">Amount (NGN):</p>
+      <input class="styled-input" type="number" id="amount" name="amount" min="1" required>
+      <br>
+      <button class="payment-btn" type="submit">Proceed to make payment</button>
+  </form>
+
+  
+</div>
+
+
+  </div>
+</body>
+</html>
+
+
+
+<!-- 
+<!DOCTYPE html>
 <html>
 <head>
     <title>Paystack Payment</title>
@@ -16,4 +59,4 @@
         <input type="submit" value="Pay">
     </form>
 </body>
-</html>
+</html> -->

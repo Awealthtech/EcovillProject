@@ -56,7 +56,7 @@ const login = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, config.jwtSecret, {
       expiresIn: "200000h",
     });
-    res.render("home", { error: "" } );
+    res.redirect("/api/home", 200, {user}, { error: "" } );
   } catch (error) {
     console.error(error);
     res.render("login", { error: "user not found or incorrect number" } );
@@ -80,10 +80,15 @@ const profile = async (req, res) => {
   }
 };
 
+const home_get = async (req, res) => {
+  return res.render("home", { error: "" });
+};
+
 module.exports = {
   signup,
   login,
   signup_get,
   login_get,
   profile,
+  home_get
 };

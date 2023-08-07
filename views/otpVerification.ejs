@@ -8,17 +8,20 @@
   <link rel="stylesheet" href="/static/style.css" />
   <body>
     <div class="container">
-      <h1 class="otp">OTP VERIFICATION</h1>
+      <h1>OTP VERIFICATION</h1>
       <p>Enter the OTP number sent to your email</p>
       <br />
       <br />
       <p class="error"><%=error%></p>
       <form action="/verifyOTP" method="POST">
-        <label for="email">Email:</label>
-        <input type="email" name="email" required />
-        <label for="otp">OTP:</label>
-        <input type="text" name="otp" required />
-        <button type="submit">Verify OTP</button>
+        <p for="email">Email:</p> 
+        <input  class="styled-input" type="email" name="email" required />
+        <br/>
+        <br/>
+        <p for="otp">OTP:</p>
+        <input  class="styled-input" type="text" name="otp" required />
+        <br/>
+        <button class="styled-button" type="submit">Verify OTP</button>
       </form>
       <p>Didn't recieve the OTP?</p>
       <a href="/views/index.ejs">Resend</a>

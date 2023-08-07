@@ -1,11 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>welcome home!!!!!</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ecovill</title>
+    <link rel="stylesheet" href="/static/style2.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="nav-bar">
+        <h1>Ecovill</h1>
+        <ul>
+          <li><a href="/api/home"> Home</a></li>
+          <li><a href="/payment/pay"> Payment</a></li>
+          <li><a href="/api/profile">Profile</a></li>
+        </ul>
+      </div>
+      <div class="pickups">
+        <h2>Pickups</h2>
+
+        <div class="green">
+          <div class="white">
+            <p>1 outstanding pickup</p>
+            <p>5 days to next pick up</p>
+          </div>
+
+          <div class="white">
+            <p>Address: No23, Adebayo street Ado-Ekiti</p>
+          </div>
+        </div>
+
+        <div class="green2">
+          <p>Confirm pickup for Today</p>
+          <button>Not Picked</button> <button>Picked</button>
+        </div>
+      </div>
+
+      <div class="history">
+        <h3>Pickup History</h3>
+        <ul>
+          <li>1st August 2023 <span>Picked</span></li>
+          <li>8th August 2023<span>Picked</span></li>
+          <li>15st August 2023<span>Picked</span></li>
+          <li>22nd August 2023<span>Picked</span></li>
+          <li>29th August 2023<span>Not-picked</span></li>
+        </ul>
+      </div>
+    </div>
+  </body>
 </html>

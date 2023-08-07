@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  
+  }
+  li {
+    color:  white;
+  }
+  
+  .wrapper .nav-bar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 130px;
+    height: 100vh;
+    background:#084616;
+  }
+  .wrapper .nav-bar h1 {color: white;
+    text-align: center;
+    line-height: 60px;
+    border-bottom: solid white;
+    border-right: solid #084616;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
+  }
+  .profile {
+    color: white;
+    font-size: 150%;
+  }
+  
+  .wrapper .nav-bar ul li {
+    list-style: none;
+    padding: 30px;
+    border-bottom: 1px solid white;
+    border-top: 1px solid #084616;
+    border-right: solid #084616;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  .pickups {
+    
+    padding: 10%;
+    position: relative;
+    left: 10%;
+    top: 50%;
+  }
+  
+  
+  
+  .green {
+  
+    padding-bottom: 10px;
+  padding-top: 1%;
+    text-align: center;
+    width: 350px;
+    height: 250px;
+    border-radius:14px ;
+    background-color: #084616
+  
+  }
+  
+  .green2 {
+   width: 350px;
+   height: 100px;
+   border-radius: 12px;
+   margin-top: 10px;
+   text-align: center;
+    background-color: #084616
+  }
+  
+  .white {
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 5px;
+    border-radius: 12px;
+    background-color: white;
+    width:300px
+  
+  }
+  
+  
+  p  {padding:5%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;}
+  
+  h2 {
+    position: absolute;
+    justify-content: center;
+    top: 80px;
+    left: 20%;
+  }
+  
+  .history {
+    border-top: solid #084616;
+    border-bottom:solid #084616;
+    border-left: solid #084616;
+    border-right: solid #084616;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 250px;
+    position: absolute;
+    top: 8%;
+    left:50%
+  }
+  .history, ul, li {
+    color: black;
+  }
+  
+  span {
+    position: relative;
+    left: 10%;
+   border-left: solid black;
+   text-align: center;
+   padding: 2%;
+   color: #084616;
+  }
+  
+  .history, ul, li {
+    padding: 2%;
+    margin-top: 0%;
+    margin-bottom: 3%;
+  }
+  
+  button {
+    padding: 1%;
+    border-radius: 14px;
+    color: aliceblue;
+    background-color: #084616;
+  }
+  
+  .profile-details {
+    padding: 10%;
+    background-color: #139732;
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    width: fit-content;
+    color: white
+  }
+  
+  
+  
+  .profile-header {
+    font-size: 200%;
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  color: #084616;
+  }
+  
+  .request {
+    position: absolute;
+    left: 24%;
+    top: 65%;
+  
+  }
+  
+  .p-header {
+    color: #084616;
+    font-size: 200%;
+    position: absolute;
+    left:10%
+    
+  }
+  
+  .styled-input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    background: #D3E4D5;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   
+}
+
+   .pay {
+    font-size: 200%;
+    position: absolute;
+    left: 150%;
+    top: 10%;
+    color: #084616;
+   }
+    
+   .pay-content{
+    position:absolute;
+    left: 125%;
+    top: 15%;
+  width:500%;
+  }
+  
+    .payment-btn {
+      position: absolute;
+      left: 10%;
+    }
+  
+    .settings{
+      width: 30%;
+      color: #084616;
+      padding: 10% ;
+    position: absolute;
+    left: 15%;
+    }
+    
+    .settings-header {
+      font-size: 200%;
+    position: absolute;
+    left: 22%;
+    top: 4%;
+    color: #084616;
+    }
+  
+  
+  
+    @media (max-width:600px){
+
+    }
