@@ -18,10 +18,10 @@ const makePaymentGet = (req, res) => {
 async function makePayment(req, res) {
   try {
     const { email, amount } = req.body;
-    const existingUser = await userSchema.findOne({ email });
-    if (!existingUser) {
-      res.render("pay", { error: "user details incorrect" });
-    }
+    // const existingUser = await userSchema.findOne({ email });
+    // if (!existingUser) {
+    //   res.render("pay", { error: "user details incorrect" });
+    // }
 
     const response = await paystackApi.post("/transaction/initialize", {
       email,
