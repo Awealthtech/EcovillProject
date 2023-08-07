@@ -94,6 +94,11 @@
     left: 20%;
   }
   
+li, a, .con{
+  text-decoration: none;
+  color: lime;
+}
+
   .history {
     border-top: solid #084616;
     border-bottom:solid #084616;
