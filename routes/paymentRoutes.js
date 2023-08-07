@@ -4,6 +4,7 @@ const router = express.Router();
 const paymentController = require('../controllers/paymentController');
 
 // Make payment
+router.get('/pay', paymentController.makePayment);
 router.post('/pay', paymentController.makePayment);
 
 // Verify payment

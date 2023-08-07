@@ -12,6 +12,10 @@ const paystackApi = axios.create({
 });
 
 async function makePayment(req, res) {
+   async function makePaymentGet(req, res) {
+    return res.render("pay", { error: "" });
+  }
+
   try {
     const { email, amount } = req.body;
     const response = await paystackApi.post('/transaction/initialize', {
@@ -27,11 +31,10 @@ async function makePayment(req, res) {
       status: 'pending',
     });
     await payment.save();
-
-    res.json({ authorization_url: response.data.data.authorization_url });
+    res.render({ authorization_url: response.data.data.authorization_url });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while initializing payment.' });
+    res.render("pay", {error: "An error occurred while initializing payment."})
   }
 }
 
@@ -46,15 +49,15 @@ async function verifyPayment(req, res) {
         { new: true }
       );
       if (!payment) {
-        return res.status(404).json({ error: 'Payment not found.' });
+      return res.render("error")
       }
-      res.json({ message: 'Payment verified successfully.' });
+      res.render("success")
     } else {
-      res.status(400).json({ error: 'Payment verification failed.' });
+      res.render("error")
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while verifying payment.' });
+    res.render("error")
   }
 }
 
