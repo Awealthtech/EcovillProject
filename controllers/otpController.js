@@ -58,7 +58,7 @@ class OTPController {
       const savedOTP = await OTP.findOne({ email }).sort({ createdAt: -1 });
 
       if (!savedOTP) {
-        res.render("otpVerification", { error: "invalid" });
+        res.render("otpVerification", { error: "otp does not match" });
       }
 
       if (otp === savedOTP.otp){
@@ -67,7 +67,7 @@ class OTPController {
         console.log("otp verified")
       } else {
         // Invalid OTP
-        res.render("otpVerification", { error: "invalid" });
+        res.render("otpVerification", { error: "email or otp does not match" });
       }
     } catch (error) {
       res.render("otpVerification", { error: "invalid" });
