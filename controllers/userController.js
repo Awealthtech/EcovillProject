@@ -56,23 +56,23 @@ const login = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, config.jwtSecret, {
       expiresIn: "200000h",
     });
-    res.redirect("/api/home", 200, {user}, { error: "" } );
+    res.redirect("/api/profile", 200, {user}, { error: "" } );
   } catch (error) {
     console.error(error);
     res.render("login", { error: "user not found or incorrect number" } );
   }
 };
 
-// profile Api
 
-  const profile = async (req, res) => {
-    try {
-      const user = await userSchema.findById(req.params.id);
-      res.render("profile");
-    } catch (error) {
-      res.redirect("/api/home")
-    }
-  };
+// profile Api
+const profile =  async (req, res) => {
+  try {
+    const user = await userSchema.find();
+    res.render('profile', { user});
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 
 const home_get = async (req, res) => {

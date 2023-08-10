@@ -1,6 +1,7 @@
 // controllers/paymentController.js
 const axios = require("axios")
 const Payment = require('../models/payment');
+const userSchema = require("../models/users");
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -58,7 +59,14 @@ async function verifyPayment(req, res) {
   }
 }
 
+// payment get
+const pay =async (req, res) => {
+  const user = await userSchema.find();
+  res.render('pay', {user});
+};
+
 module.exports = {
   initiatePayment,
   verifyPayment,
+  pay
 };

@@ -13,7 +13,10 @@
   <div class="nav-bar">
     <h1> Ecovill</h1>
     <ul>
-      <p class="profile"> Account: Onasanya Adewunmi Solomon<p>
+      <p class="profile">  <% user.forEach(users => { %>
+        <p class="profile">
+  <%= users.name %></p>
+      <% }) %><p>
         <li><a href="/api/home"> Home</a>
           <li><a href="/payment/pay"> Payment</a>
           <li><a href="/api/profile">Profile</a>

@@ -40,13 +40,13 @@
   <p class="p-header">Profile</p>
   <div class="profile-details"> 
     <% user.forEach(users => { %>
-      <ul>
-        <li><%= user.name %></li>
+      <ul class="profile">
+        <li><%= users.name %></li>
+        <li><%= users.phoneNumber %></li>
+        <li><%= users.Address %></li>
+        <li><%= users.Zone %></li>
       </ul>
-      <p><strong>Email:</strong> <%= user.email %></p>
-      <p><strong>Address:</strong> <%= user.Address %></p>
-      <p><strong>phone number:</strong> <%= user.phoneNumber %></p>
-      <% }) %>
+    <% }) %>
   </div>
   <button class="request">Request to update details</button>
 
