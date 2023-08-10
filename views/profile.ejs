@@ -1,22 +1,3 @@
-<!-- views/profile.ejs
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>User Profile</title>
-  </head>
-  <body>
-    <h1>User Profile</h1>
-    <% user.forEach(users => { %>
-    <ul>
-      <li><%= user.name %></li>
-    </ul>
-    <p><strong>Email:</strong> <%= user.email %></p>
-    <p><strong>Address:</strong> <%= user.Address %></p>
-    <p><strong>phone number:</strong> <%= user.phoneNumber %></p>
-    <% }) %>
-  </body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,19 +19,22 @@
   </ul>
   </div>
   <p class="p-header">Profile</p>
-  <div class="profile-details"> 
+  <div class="profile-details1"> 
     <% user.forEach(users => { %>
       <ul class="profile">
-        <li><%= users.name %></li>
-        <li><%= users.phoneNumber %></li>
-        <li><%= users.Address %></li>
-        <li><%= users.Zone %></li>
+        <li>Name: <%= users.name %></li>
+        <li>Phone Number: <%= users.phoneNumber %></li>
+        <li> Address: <%= users.Address %></li>
+        <li> Zone: <%= users.Zone %></li>
       </ul>
     <% }) %>
   </div>
-  <button class="request">Request to update details</button>
-
-
+  <br/>
+  <br/>
+  <br/>
+</div>
+<div>
+  <button class="request"> <a href="/api/signup">Request to update details</a></button>
 </div>
 </body>
 </html>

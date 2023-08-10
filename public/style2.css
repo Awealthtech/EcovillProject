@@ -10,6 +10,7 @@
   }
   li {
     color:  white;
+    text-decoration: none;
   }
   
   .wrapper .nav-bar {
@@ -97,6 +98,8 @@
 li, a, .con{
   text-decoration: none;
   color: lime;
+  list-style: none;
+  margin-top: 0px;
 }
 
   .history {
@@ -111,7 +114,7 @@ li, a, .con{
     left:50%
   }
   .history, ul, li {
-    color: black;
+    color: rgb(255, 255, 255);
   }
   
   span {
@@ -146,7 +149,19 @@ li, a, .con{
     color: white
   }
   
-  
+  .profile-details1{
+    background-color: #139732;
+    text-align: center;
+  text-justify: auto;
+  padding: 10%;
+  text-indent: 5px;
+  width: fit-content;
+  position: absolute;
+  left: 35%;
+  top: 20%;
+  bottom: 20%;
+  border-radius: 10px;
+  }
   
   .profile-header {
     font-size: 200%;
