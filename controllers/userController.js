@@ -15,13 +15,13 @@ const login_get = async (req, res) => {
 };
 
 const signup = async (req, res) => {
-  const { email, name, phoneNumber, Address, Zone } = req.body;
+  const { email, name, phoneNumber, Address, Zone, category } = req.body;
   try {
     // Check if the phone number already exists
     const existingUser = await userSchema.findOne({ phoneNumber });
     const OTPUser = await OTP.findOne({ email });
     if (existingUser || !OTPUser) {
-      res.render("userInfo", {error: "user details incorrect"})
+      res.render("userInfo", {error: "phone number already exist!! proceed to Login"})
     }
 
     // Create a new user
@@ -31,9 +31,11 @@ const signup = async (req, res) => {
       email,
       Address,
       Zone,
+      category
     });
 
     await newUser.save();
+    req.session.newUser = newUser;
     res.redirect("/api/login", 200, {error: ""})
   } catch (error) {
     console.error(error);
@@ -51,7 +53,6 @@ const login = async (req, res) => {
     if (!user) {
       res.render("login", { error: "user not found or incorrect number" } );
     }
-
     // Generate and return the JWT
     const token = jwt.sign({ userId: user._id }, config.jwtSecret, {
       expiresIn: "200000h",
@@ -66,17 +67,11 @@ const login = async (req, res) => {
 // profile Api
 
 const profile = async (req, res) => {
-  const { email } = req.body;
-  try {
-    const user = await userSchema.find({email});
-    if (!user) {
-     res.status(404).render("error", { error: "User not found" });
-    }
-    res.render("profile", { user });
-    console.log({user});
-  } catch (error) {
-    console.error(error);
-    res.render("error", { error: "An error occurred while fetching user profile" });
+  const user = req.session.newUser;
+  if (user) {
+    res.render('profile', { user });
+  } else {
+    res.redirect('/api/home');
   }
 };
 

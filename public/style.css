@@ -64,6 +64,18 @@ line-height: normal;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
        
   }
+  .styled-input3 {
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    background: #D3E4D5;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   
+}
+
 
   
   .styled-button {

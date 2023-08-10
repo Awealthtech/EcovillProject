@@ -38,6 +38,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  category:{
+    type: String
+  },
   Zone: {
     type: String,
     required: true,
