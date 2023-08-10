@@ -35,7 +35,6 @@ const signup = async (req, res) => {
     });
 
     await newUser.save();
-    req.session.newUser = newUser;
     res.redirect("/api/login", 200, {error: ""})
   } catch (error) {
     console.error(error);
