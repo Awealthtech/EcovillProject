@@ -66,14 +66,15 @@ const login = async (req, res) => {
 
 // profile Api
 
-const profile = async (req, res) => {
-  const user = req.session.newUser;
-  if (user) {
-    res.render('profile', { user });
-  } else {
-    res.redirect('/api/home');
-  }
-};
+  const profile = async (req, res) => {
+    try {
+      const user = await userSchema.findById(req.params.id);
+      res.render("profile");
+    } catch (error) {
+      res.redirect("/api/home")
+    }
+  };
+
 
 const home_get = async (req, res) => {
   return res.render("home", { error: "" });
